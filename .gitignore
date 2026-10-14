@@ -1,0 +1,6 @@
+.venv/
+wheels/
+results/
+*.rock
+__pycache__/
+.pytest_cache/
