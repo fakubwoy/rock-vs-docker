@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🪨 rock-vs-docker
+# rock-vs-docker
 
 **One tiny Flask + SQLite notes API, packaged three ways, then measured.**
 
@@ -17,15 +17,15 @@ Image size · the user it runs as · known vulnerabilities
 
 ---
 
-## 📊 Results
+## Results
 
 > Scanned with Trivy 0.75 on 2026-10-14.
 
 | Build | How | Size | Runs as | CVEs (crit / high / total) |
 |---|---|--:|---|--:|
-| 🐳 `Dockerfile.basic` | `python:3.12`, single stage | **1.12 GB** | ⚠️ root | 16 / 312 / **3,609** |
-| 🛡️ `Dockerfile.hardened` | `python:3.12-slim`, multi-stage venv, non-root user, healthcheck | **137 MB** | `app` | 0 / 44 / **179** |
-| 🪨 `rockcraft.yaml` | Rockcraft `flask-framework`, chiselled `bare` base, Pebble as entrypoint | **116 MB** <br><sub>49 MB `.rock` archive</sub> | `_daemon_` | 0 / 29 / **80** |
+| `Dockerfile.basic` | `python:3.12`, single stage | **1.12 GB** | root | 16 / 312 / **3,609** |
+| `Dockerfile.hardened` | `python:3.12-slim`, multi-stage venv, non-root user, healthcheck | **137 MB** | `app` | 0 / 44 / **179** |
+| `rockcraft.yaml` | Rockcraft `flask-framework`, chiselled `bare` base, Pebble as entrypoint | **116 MB** <br><sub>49 MB `.rock` archive</sub> | `_daemon_` | 0 / 29 / **80** |
 
 ```mermaid
 xychart-beta
@@ -43,22 +43,22 @@ xychart-beta
     bar [1120, 137, 116]
 ```
 
-## 🧭 How the three builds differ
+## How the three builds differ
 
 ```mermaid
 flowchart LR
-    A[app.py<br/>Flask + SQLite] --> B[🐳 basic<br/>python:3.12<br/>root]
-    A --> C[🛡️ hardened<br/>python:3.12-slim<br/>multi-stage · non-root]
-    A --> D[🪨 rock<br/>chiselled bare base<br/>Pebble · _daemon_]
+    A[app.py<br/>Flask + SQLite] --> B[basic<br/>python:3.12<br/>root]
+    A --> C[hardened<br/>python:3.12-slim<br/>multi-stage · non-root]
+    A --> D[rock<br/>chiselled bare base<br/>Pebble · _daemon_]
 ```
 
-## 💡 What I learned
+## What I learned
 
 - **The base image does most of the work.** Going from `python:3.12` to `-slim` removed about 95% of the CVEs before touching any app code.
 - **The chiselled rock has zero OS package CVEs.** Every finding left is in software I chose to ship: the Flask/gunicorn pins (also present in the other two images) and two Go binaries the extension bundles, Pebble and a StatsD exporter (60 of the 80). So the next step is not the base image, it is keeping those bundled binaries current.
 - **Pebble gives you a service manager.** The rock runs the app under Pebble, which also starts a metrics exporter, instead of a bare `CMD`.
 
-## 🚀 Run it
+## Run it
 
 ```bash
 pytest -q                                   # app test
@@ -69,7 +69,7 @@ trivy image notes:rock
 ```
 
 <details>
-<summary>📦 Building behind a network that blocks DNS in Docker</summary>
+<summary>Building behind a network that blocks DNS in Docker</summary>
 
 My office network blocks DNS inside Docker builds, so the Dockerfiles install from a `wheels/` folder downloaded on the host:
 
@@ -81,7 +81,7 @@ On a normal network you can drop `--no-index --find-links`.
 
 </details>
 
-## 🗂️ Repo layout
+## Repo layout
 
 | File | Purpose |
 |---|---|
