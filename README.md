@@ -6,8 +6,9 @@
 
 Image size · the user it runs as · known vulnerabilities
 
+[![CI](https://github.com/fakubwoy/rock-vs-docker/actions/workflows/ci.yml/badge.svg)](https://github.com/fakubwoy/rock-vs-docker/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
 ![Python](https://img.shields.io/badge/python-3.12-3776AB?logo=python&logoColor=white)
-![Flask](https://img.shields.io/badge/flask-API-000000?logo=flask&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-2_builds-2496ED?logo=docker&logoColor=white)
 ![Rockcraft](https://img.shields.io/badge/rockcraft-chiselled-E95420?logo=ubuntu&logoColor=white)
 ![Trivy](https://img.shields.io/badge/scanned_with-trivy_0.75-1904DA?logo=aqua&logoColor=white)

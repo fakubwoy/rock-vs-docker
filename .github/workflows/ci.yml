@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt pytest
+      - run: pytest -q
+      # Dockerfiles install offline from wheels/, so fetch them first
+      - run: pip download -r requirements.txt -d wheels
+      - run: docker build -f Dockerfile.basic -t notes:basic .
+      - run: docker build -f Dockerfile.hardened -t notes:hardened .
